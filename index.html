@@ -6,7 +6,7 @@
     <style type="text/css">
       body{font-family:helvetica,arial,sans-serif;}
       #main{width:500px;margin:0 auto;}
-      p{line-height:2em;}
+      p{line-height:1.5em;}
       .code{font-family:'courier new',monospace;background-color:#eed;padding:0px 3px;}
     </style>
   </head>
@@ -16,6 +16,10 @@
       <h2>Background</h2>
       <p>Snapchat encrypts the photos received to your device based on the version of the application you are running. From version 5.0.1 (or something) onwards, it uses an ever changing key (it's 'predictable' but personally I can't be arsed with this shit)</p>
       <p>Previous versions encrypt the photos with a static key, which is what this little guide makes use of.</p>
+      
+      <h2>The setup</h2>
+      <p>Get an old version of snapchat; I currently use 4.1.07. It has filters and stories and all the stuff I need for day-to-day use. I won't link the .apk here for obvious reasons... if you can't find it then <a href="mailto:oli@teknik.io">give me a shout</a>.</p>
+      <p>Your phone needs to be rooted (or jailbroken if you are like that)</p>
       
       <h2>The code</h2>
       <p>This is all you are bothered about, let's be honest</p>
@@ -48,6 +52,15 @@
         o += c.final<br>
         File.open(dec_file, 'w') { |f| f.write(o) }
       </p>
+      
+      <h2>The process</h2>
+      <p>Put the code in two files on your machine and <span class="code">chmod +x</span> them</p>
+      <p>Load up snapchat to download your unviewed snaps to /data/data/com.snapchat.android/cache/received_image_snaps</p>
+      <p>Use your favourite file manager to <b>copy</b> these elsewhere</p>
+      <p>Move the .jpg.nomedia file to your PC (same directory as the script) and run the wrapper.sh</p>
+      <p>Hey presto!</p>
+      <p><a href="mailto:oli@teknik.io">problems?</a></p>
+      <p>-- oli</p>
     </div>
   </body>
 </html>
