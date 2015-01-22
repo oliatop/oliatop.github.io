@@ -38,9 +38,6 @@
 
         enc_file = ARGV[0]<br>
         dec_file = ARGV[1]<br><br>
-
-        p $enc_file<br>
-        p $dec_file<br><br>
         
         data = File.open(enc_file, 'r:ASCII-8BIT').read<br>
         c = OpenSSL::Cipher.new('AES-128-ECB')<br>
