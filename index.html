@@ -12,9 +12,45 @@
   </head>
   <body>
     <div id="main">
-      <h1>save|decrypt snapchat images: howto</h1>
-      <p>testing some writing <span class="code">and code...</span></p>
-      <p>looking ok I reckon?</p>
+      <h1>save&decrypt snapchat images: howto</h1>
+      <h2>Background</h2>
+      <p>Snapchat encrypts the photos received to your device based on the version of the application you are running. From version 5.0.1 (or something) onwards, it uses an ever changing key (it's 'predictable' but personally I can't be arsed with this shit)</p>
+      <p>Previous versions encrypt the photos with a static key, which is what this little guide makes use of</p>
+      
+      <h2>The code</h2>
+      <p>This is all you are bothered about, let's be honest</p>
+      <h3>wrapper.sh</h3>
+      <p class="code">
+        #!/bin/bash<br><br>
+        
+        for i in *.nomedia<br>
+        do<br>
+          enc_file=$i<br>
+          dec_file=$(echo $i | sed 's/.nomedia//')<br>
+          ./decrypt.rb $enc_file $dec_file<br>
+        done
+      </p>
+      <h3>decrypt.rb</h3>
+      <p class="code">
+        #!/usr/bin/ruby<br><br>
+
+        require 'openssl'<br><br>
+
+        enc_file = ARGV[0]<br>
+        dec_file = ARGV[1]<br><br>
+
+        p $enc_file<br>
+        p $dec_file<br><br>
+        
+        data = File.open(enc_file, 'r:ASCII-8BIT').read<br>
+        c = OpenSSL::Cipher.new('AES-128-ECB')<br>
+        c.decrypt<br>
+        c.key = 'M02cnQ51Ji97vwT4'<br>
+        o = ''.force_encoding('ASCII-8BIT')<br>
+        data.bytes.each_slice(16) { |s| o += c.update(s.map(&:chr).join) }<br>
+        o += c.final<br>
+        File.open(dec_file, 'w') { |f| f.write(o) }
+      </p>
     </div>
   </body>
 </html>
